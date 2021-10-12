@@ -24,23 +24,27 @@ esplugin {
     noticeFile = rootProject.file('NOTICE.txt')
 }
 
-jar {
-    archiveBaseName.set(rootProject.name)
-}
-
-javadocJar {
-    archiveBaseName.set(rootProject.name)
-}
-
-sourcesJar {
-    archiveBaseName.set(rootProject.name)
-}
+//jar {
+//    archiveBaseName.set(rootProject.name)
+//}
+//
+//javadocJar {
+//    archiveBaseName.set(rootProject.name)
+//}
+//
+//sourcesJar {
+//    archiveBaseName.set(rootProject.name)
+//}
 
 assemble {
     doLast {
         file("build/distributions/analysis-hanlp-${elasticsearchVersion}.zip").renameTo(file("build/distributions/${rootProject.name}-${elasticsearchVersion}.zip"))
         ant.checksum file: "build/distributions/${rootProject.name}-${elasticsearchVersion}.zip"
     }
+}
+
+repositories {
+    mavenCentral()
 }
 
 configurations.all() {
@@ -53,64 +57,64 @@ configurations.all() {
 }
 
 dependencies {
-    compile 'com.hankcs:hanlp:portable-1.7.8'
-    compile 'commons-codec:commons-codec:1.15'
-    compile 'commons-logging:commons-logging:1.2'
-    compile 'org.apache.httpcomponents:httpclient:4.5.13'
-    compile 'org.apache.httpcomponents:httpcore:4.4.14'
+    implementation 'com.hankcs:hanlp:portable-1.8.2'
+    implementation 'commons-codec:commons-codec:1.15'
+    implementation 'commons-logging:commons-logging:1.2'
+    implementation 'org.apache.httpcomponents:httpclient:4.5.13'
+    implementation 'org.apache.httpcomponents:httpcore:4.4.14'
 }
 
-checkstyle {
-    sourceSets = [project.sourceSets.main]
-}
-
-checkstyleMain {
-    excludes = ['**/PorterStemmer.java']
-}
-
-forbiddenApisMain {
-    excludes = [
-            '**/AnalysisHanLPPlugin.class',
-            '**/PorterStemmer.class',
-            '**/RemoteDictConfig.class',
-            '**/DictionaryFileCache.class',
-            '**/ExtMonitor.class',
-            '**/model/*.class',
-            '**/CoreStopWordDictionary.class'
-    ]
-}
-
-forbiddenPatterns {
-    forbiddenPatterns.enabled = false;
-}
-
-licenseHeaders {
-    licenseHeaders.enabled = false
-}
-
-dependencyLicenses {
-    dependencyLicenses.enabled = false
-}
-
-thirdPartyAudit {
-    thirdPartyAudit.enabled = false
-}
-
-validateNebulaPom {
-    validateNebulaPom.enabled = false
-}
-
-loggerUsageCheck {
-    loggerUsageCheck.enabled = false
-}
-
-test {
-    systemProperty 'tests.security.manager', 'false'
-}
-
-testingConventions {
-    testingConventions.enabled = false
-}
+//checkstyle {
+//    sourceSets = [project.sourceSets.main]
+//}
+//
+//checkstyleMain {
+//    excludes = ['**/PorterStemmer.java']
+//}
+//
+//forbiddenApisMain {
+//    excludes = [
+//            '**/AnalysisHanLPPlugin.class',
+//            '**/PorterStemmer.class',
+//            '**/RemoteDictConfig.class',
+//            '**/DictionaryFileCache.class',
+//            '**/ExtMonitor.class',
+//            '**/model/*.class',
+//            '**/CoreStopWordDictionary.class'
+//    ]
+//}
+//
+//forbiddenPatterns {
+//    forbiddenPatterns.enabled = false;
+//}
+//
+//licenseHeaders {
+//    licenseHeaders.enabled = false
+//}
+//
+//dependencyLicenses {
+//    dependencyLicenses.enabled = false
+//}
+//
+//thirdPartyAudit {
+//    thirdPartyAudit.enabled = false
+//}
+//
+//validateNebulaPom {
+//    validateNebulaPom.enabled = false
+//}
+//
+//loggerUsageCheck {
+//    loggerUsageCheck.enabled = false
+//}
+//
+//test {
+//    systemProperty 'tests.security.manager', 'false'
+//}
+//
+//testingConventions {
+//    testingConventions.enabled = false
+//}
 
 javadoc {
     enabled = false
