@@ -7,6 +7,7 @@ import com.hankcs.model.PerceptronCWSInstance;
 import com.hankcs.model.PerceptronNERInstance;
 import com.hankcs.model.PerceptronPOSInstance;
 import org.apache.lucene.analysis.Analyzer;
+import org.elasticsearch.SpecialPermission;
 
 import java.security.AccessController;
 import java.security.PrivilegedAction;
@@ -31,6 +32,11 @@ public class HanLPNLPAnalyzer extends Analyzer {
 
     @Override
     protected Analyzer.TokenStreamComponents createComponents(String fieldName) {
+        SecurityManager sm = System.getSecurityManager();
+        if (sm != null) {
+            // unprivileged code such as scripts do not have SpecialPermission
+            sm.checkPermission(new SpecialPermission());
+        }
         return new Analyzer.TokenStreamComponents(
                 TokenizerBuilder.tokenizer(
                         AccessController.doPrivileged((PrivilegedAction<Segment>) () ->

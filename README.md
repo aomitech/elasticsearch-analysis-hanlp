@@ -15,7 +15,7 @@ HanLP Analyzer for ElasticSearch
 
 * hanlp: 1.8.2
 * elasticsearch: 7.15.0
-
+* 变更HanLP的data目录到 $ES_HOME/config/analysis-hanlp中，使用时需要把data目录上传到该目录中
 删除plugin-metadata下的数据，开发测试自行从官网下载
 
 

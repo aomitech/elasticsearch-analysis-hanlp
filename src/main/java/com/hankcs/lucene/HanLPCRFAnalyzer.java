@@ -7,6 +7,7 @@ import com.hankcs.model.CRFNERecognizerInstance;
 import com.hankcs.model.CRFPOSTaggerInstance;
 import com.hankcs.model.CRFSegmenterInstance;
 import org.apache.lucene.analysis.Analyzer;
+import org.elasticsearch.SpecialPermission;
 
 import java.security.AccessController;
 import java.security.PrivilegedAction;
@@ -31,6 +32,11 @@ public class HanLPCRFAnalyzer extends Analyzer {
 
     @Override
     protected TokenStreamComponents createComponents(String fieldName) {
+        SecurityManager sm = System.getSecurityManager();
+        if (sm != null) {
+            // unprivileged code such as scripts do not have SpecialPermission
+            sm.checkPermission(new SpecialPermission());
+        }
         if (CRFPOSTaggerInstance.getInstance().getTagger() == null) {
             return new TokenStreamComponents(
                     TokenizerBuilder.tokenizer(
